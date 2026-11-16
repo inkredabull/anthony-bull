@@ -1,6 +1,6 @@
 ---
 name: "shop"
-description: "Adds items to the user's Instacart cart and flushes their Apple Reminders groceries list into the same cart. Use standalone to push everything in the groceries list to Instacart, or invoked from meal-planning:plan when the Instacart path is chosen."
+description: "Adds items to the user's Instacart cart and flushes their Apple Reminders groceries list into the same cart. Use standalone to push everything in the groceries list to Instacart, or invoked from meal-planning:plan-meals when the Instacart path is chosen."
 ---
 
 # Groceries → Instacart
@@ -27,7 +27,7 @@ It handles two invocation patterns:
    action, only after the cart add succeeds.
 5. Confirm: how many items were added and that the groceries list has been cleared.
 
-## Pattern B — With items (invoked from meal-planning:plan or similar)
+## Pattern B — With items (invoked from meal-planning:plan-meals or similar)
 
 When a deduplicated ingredient list is already present in context (provided by the
 calling skill or flow):

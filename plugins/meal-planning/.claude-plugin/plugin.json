@@ -11,5 +11,7 @@
     "instacart",
     "calendar"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/inkredabull/anthony-bull",
+  "repository": "https://github.com/inkredabull/anthony-bull"
 }

@@ -17,7 +17,7 @@ Personal and household Claude plugins.
 
 ## Skills in `meal-planning`
 
-- `meal-planning:plan`
+- `meal-planning:plan-meals`
 - `meal-planning:shop`
 
 ## Layout
@@ -45,7 +45,7 @@ and an .ics file is offered for the calendar.
 
 To personalize the plans, copy `plugins/meal-planning/profile.example.md` to
 `~/.claude/meal-planning/profile.md` and fill in what you want. If the file is
-missing, `meal-planning:plan` will ask a few questions and offer to create it.
+missing, `meal-planning:plan-meals` will ask a few questions and offer to create it.
 It lives in your home folder, so it survives plugin updates and never ends up in
 a repo. `.gitignore` also excludes any `profile.md` as a safety net.
 
