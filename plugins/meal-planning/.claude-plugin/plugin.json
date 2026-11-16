@@ -1,0 +1,15 @@
+{
+  "name": "meal-planning",
+  "version": "0.1.0",
+  "description": "Plan meals, build the grocery list or cart, and put dinners on the calendar.",
+  "author": {
+    "name": "Anthony Bull"
+  },
+  "keywords": [
+    "meals",
+    "groceries",
+    "instacart",
+    "calendar"
+  ],
+  "license": "MIT"
+}

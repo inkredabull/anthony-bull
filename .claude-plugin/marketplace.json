@@ -1,0 +1,16 @@
+{
+  "name": "anthony-bull",
+  "owner": {
+    "name": "Anthony Bull"
+  },
+  "metadata": {
+    "description": "Personal and household plugins by Anthony Bull."
+  },
+  "plugins": [
+    {
+      "name": "meal-planning",
+      "source": "./plugins/meal-planning",
+      "description": "Plan meals, build the grocery list or cart, and put dinners on the calendar."
+    }
+  ]
+}

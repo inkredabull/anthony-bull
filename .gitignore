@@ -1,0 +1,5 @@
+# Personal data stays local
+.private/
+profile.md
+!profile.example.md
+.DS_Store
