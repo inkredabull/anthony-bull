@@ -208,7 +208,6 @@ Send an email via the Gmail connector:
 - **Body** (use `htmlBody` to prevent Gmail from rewriting the link):
 
 ```html
-<p><strong><tab title></strong></p>
 <p>
 Mon: <dinner><br>
 Tue: <dinner><br>
