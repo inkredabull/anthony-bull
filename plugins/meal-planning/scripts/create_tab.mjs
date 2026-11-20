@@ -52,7 +52,7 @@ try {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        requests: [{ createTab: { tabProperties: { title, index } } }],
+        requests: [{ addDocumentTab: { tabProperties: { title, index } } }],
       }),
     }
   );
@@ -64,7 +64,7 @@ try {
   }
 
   const data = await response.json();
-  const tabId = data?.replies?.[0]?.createTab?.tab?.tabProperties?.tabId;
+  const tabId = data?.replies?.[0]?.addDocumentTab?.tab?.tabProperties?.tabId;
 
   if (!tabId) {
     console.error('API returned no tabId:', JSON.stringify(data));
