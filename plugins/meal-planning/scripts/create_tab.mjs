@@ -7,16 +7,14 @@
  *   node create_tab.mjs --doc-id <documentId> --title <tabTitle> [--index <n>]
  *
  * Prerequisites:
- *   npm install googleapis          (or: npm install -g googleapis)
- *   gcloud auth application-default login \
- *     --scopes=https://www.googleapis.com/auth/documents
+ *   gcloud auth login   (standard gcloud sign-in; no application-default needed)
  *
  * Exit codes:
  *   0  success — tab ID printed to stdout
  *   1  usage error or API failure — message printed to stderr
  */
 
-import { google } from 'googleapis';
+import { execSync } from 'child_process';
 
 // ---------------------------------------------------------------------------
 // Argument parsing
@@ -43,33 +41,33 @@ if (!docId || !title) {
 // ---------------------------------------------------------------------------
 
 try {
-  const auth = new google.auth.GoogleAuth({
-    scopes: ['https://www.googleapis.com/auth/documents'],
-  });
+  const token = execSync('gcloud auth print-access-token', { encoding: 'utf8' }).trim();
 
-  const docs = google.docs({ version: 'v1', auth });
+  const response = await fetch(
+    `https://docs.googleapis.com/v1/documents/${docId}:batchUpdate`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requests: [{ createTab: { tabProperties: { title, index } } }],
+      }),
+    }
+  );
 
-  const response = await docs.documents.batchUpdate({
-    documentId: docId,
-    requestBody: {
-      requests: [
-        {
-          createTab: {
-            tabProperties: {
-              title,
-              index,
-            },
-          },
-        },
-      ],
-    },
-  });
+  if (!response.ok) {
+    const text = await response.text();
+    console.error(`API error ${response.status}: ${text}`);
+    process.exit(1);
+  }
 
-  const tabId =
-    response.data?.replies?.[0]?.createTab?.tab?.tabProperties?.tabId;
+  const data = await response.json();
+  const tabId = data?.replies?.[0]?.createTab?.tab?.tabProperties?.tabId;
 
   if (!tabId) {
-    console.error('API returned no tabId in reply:', JSON.stringify(response.data));
+    console.error('API returned no tabId:', JSON.stringify(data));
     process.exit(1);
   }
 

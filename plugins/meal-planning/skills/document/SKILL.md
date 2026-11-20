@@ -235,15 +235,11 @@ Confirm: email sent to anthony@bluxomelabs.com.
 
 ## Script setup (one-time, local machine)
 
-The script at `plugins/meal-planning/scripts/create_tab.mjs` requires:
+The script at `plugins/meal-planning/scripts/create_tab.mjs` requires only a standard
+gcloud login (no application-default, no extra npm packages):
 
 ```bash
-# Install the Google APIs client
-npm install -g googleapis
-
-# Authenticate with the Docs scope
-gcloud auth application-default login \
-  --scopes=https://www.googleapis.com/auth/documents
+gcloud auth login
 ```
 
 Run once per machine. After that the script is used automatically on every `/document` run.
