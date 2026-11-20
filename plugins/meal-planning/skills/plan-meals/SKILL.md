@@ -230,9 +230,11 @@ shopping-list text file.
 
 Build one deduplicated ingredient list for the whole plan:
 
-- One entry per ingredient, plain ingredient name only (no quantities, no
-  section labels, no brand unless needed for specificity)
-- Each ingredient appears once only across all meals
+- One entry per ingredient, with quantity scaled for the household size in the
+  profile (e.g. "2 lbs chicken thighs", "1 bunch kale", "3 cups quinoa") — no
+  section labels, no brand unless needed for specificity
+- Each ingredient appears once only across all meals; sum quantities when the
+  same ingredient is called for by multiple meals
 - Exclude already-stocked or freezer items when inventory is provided
 - Include the standing add-ons from the profile every time
 
@@ -263,7 +265,7 @@ the profile does not set them:
 | Lunch | 11:30 AM | 30 min |
 | Dinner | 4:30 PM | 60 min |
 
-- summary = recipe name only
+- summary = meal-type tag + recipe name: `[DINNER] <name>`, `[LUNCH] <name>`, `[BREAKFAST] <name>`
 - Set the timeZone from the profile, or ask the user if it is unknown (pass explicit offsets matching daylight or standard time for the event dates, or rely on the timeZone field)
 - Use the profile's colorId for every meal-plan event (omit it if none is set)
 - description includes: ingredients (one per line, scaled for the household size in the profile plus leftovers), then step-by-step instructions with amounts and timing (each step its own line), no recipe URLs

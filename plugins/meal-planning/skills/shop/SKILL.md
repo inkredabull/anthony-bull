@@ -1,6 +1,6 @@
 ---
 name: "shop"
-description: "Adds items to the user's Instacart cart and flushes their Apple Reminders groceries list into the same cart. Use standalone to push everything in the groceries list to Instacart, or invoked from meal-planning:plan-meals when the Instacart path is chosen."
+description: "Adds items to the user's Instacart cart and flushes their Apple Reminders groceries list into the same cart. Use standalone to push everything in the groceries list to Instacart, or invoked from meal-planning:plan-meals when the Instacart path is chosen. On successful completion, invokes meal-planning:document to record the week's dinners in the Google Doc."
 ---
 
 # Groceries → Instacart
@@ -21,11 +21,15 @@ It handles two invocation patterns:
 1. Read the groceries list from Apple Reminders.
 2. If the list is empty, tell the user and stop.
 3. Add all items to the Instacart cart at the retailer using `quick_add_search_queries`
-   in a single call — one query per item, plain ingredient name only
-   (no quantities, no section labels, no brand unless needed for specificity).
+   in a single call — one query per item, quantity + ingredient name
+   (e.g. "2 lbs chicken thighs", "1 bunch kale") — no section labels, no brand
+   unless needed for specificity.
 4. Delete each item from Apple Reminders using the Reminders connector's delete
    action, only after the cart add succeeds.
 5. Confirm: how many items were added and that the groceries list has been cleared.
+6. If Mon–Thu dinners for the current week are present in context, invoke
+   `meal-planning:document` to write them into the Google Doc. If the dinners are
+   not in context (e.g. a standalone shop without a prior plan run), skip this step.
 
 ## Pattern B — With items (invoked from meal-planning:plan-meals or similar)
 
@@ -33,20 +37,26 @@ When a deduplicated ingredient list is already present in context (provided by t
 calling skill or flow):
 
 1. Add the provided ingredient list to the Instacart cart at the retailer using
-   `quick_add_search_queries` in a single call — one query per item, plain name only.
+   `quick_add_search_queries` in a single call — one query per item, quantity + ingredient
+   name when quantities are present (e.g. "2 lbs chicken thighs").
 2. Read the groceries list from Apple Reminders.
 3. If the Reminders list has items, add any NOT already in the ingredient list
    just sent (deduplicate) to the same cart.
 4. Delete all items found in the Reminders groceries list using the Reminders
    connector's delete action — only after the cart add(s) succeed.
 5. Confirm: total items added to cart, and that the groceries list has been cleared.
+6. Invoke `meal-planning:document` to write this week's Mon–Thu dinners into the
+   Google Doc. The dinners are already in context from the plan-meals output.
 
 ## Rules (both patterns)
 
 - Retailer: the one named in the profile
 - Use `quick_add_search_queries` for cart additions
-- One query per ingredient, plain name only — no quantities, no section labels,
-  no brand unless needed for specificity
+- One query per ingredient, quantity + ingredient name when quantities are present
+  (e.g. "2 lbs chicken thighs", "1 bunch kale") — no section labels, no brand
+  unless needed for specificity
 - Deduplicate: each ingredient appears in the cart once only
 - Never delete from Reminders until the cart add has succeeded
 - If the cart add fails, do not delete from Reminders; report the failure instead
+- Step 6 (document) runs only after a successful cart add + Reminders clear; if
+  either earlier step failed, skip Step 6
