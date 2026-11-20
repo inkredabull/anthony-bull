@@ -129,6 +129,7 @@ Approved formats:
 - No same protein two nights in a row (the leftovers-night carryover from the double-batch dinner is expected and doesn't count as a violation)
 - Do not plan dinners on days the profile lists as covered by someone else
 - No same-protein repeat across both meals on the same day, particularly the leftovers-night lunch vs. dinner, even when both trace back to the same leftover batch - vary the protein or presentation
+- At least one weeknight dinner each week must be vegetarian or plant-based (no meat, poultry, or fish as the protein; eggs and dairy are fine)
 
 Weekly architecture (Sun-Thu default):
 

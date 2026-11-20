@@ -205,17 +205,17 @@ Send an email via the Gmail connector:
 
 - **To**: anthony@bluxomelabs.com
 - **Subject**: `Week of <tab title> — Dinners`
-- **Body** (plain text):
+- **Body** (use `htmlBody` to prevent Gmail from rewriting the link):
 
-```
-<tab title>
-
-Mon: <dinner>
-Tue: <dinner>
-Wed: <dinner>
+```html
+<p><strong><tab title></strong></p>
+<p>
+Mon: <dinner><br>
+Tue: <dinner><br>
+Wed: <dinner><br>
 Thu: <dinner or blank>
-
-https://docs.google.com/document/d/1K8AlBAs_Ir8yau7onNdsyi76YKK8-46bSD8OX0TJumA/edit?tab=<tabId>
+</p>
+<p><a href="https://docs.google.com/document/d/1K8AlBAs_Ir8yau7onNdsyi76YKK8-46bSD8OX0TJumA/edit?tab=<tabId>">https://docs.google.com/document/d/1K8AlBAs_Ir8yau7onNdsyi76YKK8-46bSD8OX0TJumA/edit?tab=<tabId></a></p>
 ```
 
 Confirm: email sent to anthony@bluxomelabs.com.
