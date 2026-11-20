@@ -232,14 +232,3 @@ Confirm: email sent to anthony@bluxomelabs.com.
   draft tab.
 - Send the email (Step 7) only after the tab content is successfully written. If tab
   creation or formatting fails, skip the email and report the failure instead.
-
-## Script setup (one-time, local machine)
-
-The script at `plugins/meal-planning/scripts/create_tab.mjs` requires only a standard
-gcloud login (no application-default, no extra npm packages):
-
-```bash
-gcloud auth login
-```
-
-Run once per machine. After that the script is used automatically on every `/document` run.
